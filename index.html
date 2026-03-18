@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Petualangan Luar Angkasa - Belajar Planet Seru!</title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<!-- Three.js untuk 3D -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- GSAP untuk animasi smooth -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+</head>
+<body>
+<!-- Space Background -->
+<div class="space-background" id="space-bg"></div>
+
+<!-- Stars -->
+<div class="stars-container" id="stars"></div>
+
+<!-- Nebula Effects -->
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div> 
+
+<!-- Achievement Notification -->
+<div class="achievement" id="achievement">
+    <span class="achievement-icon">🏆</span>
+    <div>
+        <strong id="achievement-title">Pencapaian!</strong>
+        <div id="achievement-desc">Skor Tinggi!</div>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="app-container">
+    <!-- SCREEN 1: LOGIN -->
+    <div id="screen-login" class="screen active">
+        <div class="animate__animated animate__fadeInDown text-center">
+            <div class="loading-rocket mb-3">🚀</div>
+            <div class="planet-hero planet-earth"></div>
+            <h1 class="mb-3">Halo Astronaut Cilik!</h1>
+            <p class="lead mb-4" style="font-size: 1.3rem; color: var(--accent);">
+                Siap menjelajahi keajaiban tata surya?
+            </p>
+            <input 
+                type="text" 
+                class="form-control form-control-space mx-auto" 
+                id="username" 
+                placeholder="‍🚀 Masukkan namamu..." 
+                style="max-width:450px"
+            >
+            <div class="mt-5">
+                <button 
+                    class="btn btn-space animate__animated animate__pulse animate__infinite" 
+                    onclick="login()"
+                >
+                    <i class="bi bi-rocket-takeoff me-2"></i>
+                    Mulai Petualangan
+                </button>
+            </div>
+            <p class="mt-5" style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">
+                <i class="bi bi-stars me-2" style="color: var(--accent);"></i>
+                Belajar IPA jadi super seru!
+            </p>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: DASHBOARD -->
+    <div id="screen-dashboard" class="screen">
+        <div class="animate__animated animate__fadeIn text-center">
+            <h2 class="mb-3" id="welcome-msg">Selamat Datang!</h2>
+            <div class="planet-hero planet-mars mb-4"></div>
+            <p class="lead mb-4" style="font-size: 1.3rem;">
+                Yuk belajar tentang planet-planet menakjubkan di tata surya kita!
+            </p>
+            <div class="progress-space mb-4" style="max-width: 500px; margin: 0 auto 30px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" 
+                     style="width: 0%" 
+                     id="progress-bar">
+                </div>
+            </div>
+            <div class="mt-4 d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <button class="btn btn-space" onclick="goTo('screen-main-menu')">
+                    <i class="bi bi-play-circle me-2"></i>Mulai Belajar
+                </button>
+                <button class="btn btn-outline-space" onclick="showPetunjuk()">
+                    <i class="bi bi-info-circle me-2"></i>Petunjuk
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: MAIN MENU -->
+    <div id="screen-main-menu" class="screen">
+        <h2 class="mb-5 text-center" style="font-size: 2.5rem; color: var(--accent);">
+            🎮 Markas Utama Astronaut
+        </h2>
+        <div class="row g-4 w-100">
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-material')">
+                    <span class="menu-icon">📚</span>
+                    <h5 class="menu-title">Materi</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-planet')">
+                    <span class="menu-icon">🪐</span>
+                    <h5 class="menu-title">Planet 3D</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-quiz')">
+                    <span class="menu-icon">📝</span>
+                    <h5 class="menu-title">Kuis</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-game')">
+                    <span class="menu-icon">🎮</span>
+                    <h5 class="menu-title">Game</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-facts')">
+                    <span class="menu-icon">💡</span>
+                    <h5 class="menu-title">Fakta Seru</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-compare')">
+                    <span class="menu-icon">📊</span>
+                    <h5 class="menu-title">Perbandingan</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-videos')">
+                    <span class="menu-icon">🎬</span>
+                    <h5 class="menu-title">Video</h5>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="menu-card" onclick="goTo('screen-info')">
+                    <span class="menu-icon">ℹ️</span>
+                    <h5 class="menu-title">Info</h5>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <button class="btn btn-outline-space" onclick="goTo('screen-dashboard')">
+                <i class="bi bi-arrow-left me-2"></i>Kembali
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: MATERI -->
+    <div id="screen-material" class="screen">
+        <h2 class="mb-4 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            📖 Ensiklopedia Planet
+        </h2>
+        <div id="materi-content" class="materi-card w-100"></div>
+        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+            <button class="btn btn-outline-space" onclick="prevMateri()">
+                <i class="bi bi-arrow-left me-2"></i>Sebelumnya
+            </button>
+            <button class="btn btn-space" onclick="nextMateri()">
+                Selanjutnya <i class="bi bi-arrow-right ms-2"></i>
+            </button>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: PLANET 3D -->
+    <div id="screen-planet" class="screen">
+        <h2 class="mb-2 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            🪐 Tata Surya 3D Interaktif
+        </h2>
+        <p class="text-center mb-3" style="color: rgba(255,255,255,0.8); font-size: 1rem;">
+            <i class="bi bi-hand-index me-2"></i>Klik planet untuk melihat info • Geser untuk navigasi
+        </p>
+        <div id="solar-container">
+            <div id="stars-3d" style="position:absolute;width:100%;height:100%"></div>
+            <div id="solar-system-3d">
+                <div id="sun-3d" onclick="showPlanetInfo('sun')"></div>
+            </div>
+        </div>
+        <div id="planet-info-panel" class="mt-4">
+            <h4 id="planet-name" class="text-warning mb-2" style="font-size: 1.5rem;"></h4>
+            <p id="planet-desc" class="mb-0" style="font-size: 1.05rem; line-height: 1.6;"></p>
+        </div>
+        <div class="solar-controls">
+            <button class="solar-btn" id="btn-speed" onclick="toggleSpeed()">
+                ⚡ Speed: Normal
+            </button>
+            <button class="solar-btn" onclick="resetSolar()">
+                🔄 Reset
+            </button>
+            <button class="solar-btn" onclick="toggleView()">
+                👁️ 2D/3D
+            </button>
+            <button class="solar-btn" onclick="zoomIn()">🔍 Zoom In</button>
+            <button class="solar-btn" onclick="zoomOut()">🔍 Zoom Out</button>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    
+
+    <!-- SCREEN 6: KUIS -->
+    <div id="screen-quiz" class="screen">
+        <h2 class="mb-4 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            📝 Kuis Antariksa
+        </h2>
+        <div class="progress-space mb-4">
+            <div class="progress-bar" role="progressbar" style="width: 0%" id="quiz-progress">
+                Soal 0/0
+            </div>
+        </div>
+        <div id="quiz-box" class="quiz-card w-100">
+            <h4 id="question-number" class="text-warning mb-3" style="font-size: 1.3rem;"></h4>
+            <p id="question-text" class="lead mb-4" style="font-size: 1.3rem;"></p>
+            <div id="options-container"></div>
+        </div>
+        <div id="score-box" class="text-center" style="display:none">
+            <div class="planet-hero planet-jupiter mb-4"></div>
+            <h3 class="mb-3" style="color: var(--accent);">🎉 Hebat Sekali!</h3>
+            <p class="lead mb-4">Skor Kamu:</p>
+            <div class="score-badge" id="final-score" style="font-size: 2.5rem; padding: 20px 50px;">0</div>
+            <div class="mt-5">
+                <button class="btn btn-space" onclick="resetQuiz()">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Ulangi Kuis
+                </button>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 7: GAME -->
+    <div id="screen-game" class="screen">
+        <h2 class="mb-3 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            🎯 Tangkap Planet!
+        </h2>
+        <p class="text-center mb-3">Klik planet yang muncul secepat mungkin!</p>
+        <div class="d-flex justify-content-center gap-3 mb-4 flex-wrap">
+            <div class="score-badge">
+                <i class="bi bi-trophy me-2"></i>Skor: <span id="game-score">0</span>
+            </div>
+            <div class="score-badge" style="background:linear-gradient(135deg,#e17055,#fd79a8)">
+                <i class="bi bi-clock me-2"></i>Waktu: <span id="game-time">30</span>s
+            </div>
+        </div>
+        <div class="game-container w-100">
+            <div id="game-area"></div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-space" id="btn-start-game" onclick="startGame()">
+                <i class="bi bi-play-fill me-2"></i>Mulai Game
+            </button>
+        </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 8: FUN FACTS -->
+    <div id="screen-facts" class="screen">
+        <h2 class="mb-4 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            💡 Fakta Seru Planet
+        </h2>
+        <div id="facts-container" class="w-100"></div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 9: COMPARISON -->
+    <div id="screen-compare" class="screen">
+        <h2 class="mb-4 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            📊 Perbandingan Planet
+        </h2>
+        <div class="comparison-chart w-100">
+            <h4 class="mb-3" style="color: var(--accent);">Ukuran Planet (Diameter)</h4>
+            <div id="size-comparison"></div>
+            
+            <h4 class="mb-3 mt-5" style="color: var(--accent);">Jarak dari Matahari</h4>
+            <div id="distance-comparison"></div>
+            
+            <h4 class="mb-3 mt-5" style="color: var(--accent);">Suhu Permukaan</h4>
+            <div id="temp-comparison"></div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 10: VIDEOS -->
+    <div id="screen-videos" class="screen">
+        <h2 class="mb-4 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            🎬 Video Edukasi
+        </h2>
+        <div class="row g-4 w-100">
+            <div class="col-md-6">
+                <div class="materi-card">
+                    <h5 class="mb-3" style="color: var(--accent);">🌍 Mengenal Tata Surya</h5>
+                    <div style="background: rgba(0,0,0,0.5); border-radius: 15px; padding: 30px; text-align: center;">
+                        <i class="bi bi-play-circle" style="font-size: 4rem; color: var(--accent);"></i>
+                        <p class="mt-3">Video pengenalan tata surya dan planet-planetnya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="materi-card">
+                    <h5 class="mb-3" style="color: var(--accent);">🚀 Perjalanan ke Mars</h5>
+                    <div style="background: rgba(0,0,0,0.5); border-radius: 15px; padding: 30px; text-align: center;">
+                        <i class="bi bi-play-circle" style="font-size: 4rem; color: var(--accent);"></i>
+                        <p class="mt-3">Bagaimana cara manusia pergi ke Planet Mars?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-house me-2"></i>Kembali ke Menu
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 11: INFO -->
+    <div id="screen-info" class="screen">
+        <h2 class="mb-5 text-center" style="font-size: 2.3rem; color: var(--accent);">
+            ℹ️ Informasi & Referensi
+        </h2>
+        <div class="materi-card w-100 text-start">
+            <h5 class="text-warning mb-3" style="font-size: 1.4rem;">
+                <i class="bi bi-book me-2"></i>Tentang Aplikasi
+            </h5>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                Aplikasi ini dibuat untuk membantu anak-anak SD belajar tentang tata surya dengan cara yang menyenangkan dan interaktif. 
+                Dilengkapi dengan visualisasi 3D, kuis, game, dan fakta-fakta menarik tentang planet!
+            </p>
+            
+            <h5 class="text-warning mb-3 mt-5" style="font-size: 1.4rem;">
+                <i class="bi bi-journal-bookmark me-2"></i>Referensi
+            </h5>
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Buku Paket IPA SD Kelas 4-6
+                </li>
+                <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    NASA Kids Club
+                </li>
+                <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Ensiklopedia Anak Indonesia
+                </li>
+                <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Space.com Educational Resources
+                </li>
+            </ul>
+            
+            <h5 class="text-warning mb-3 mt-5" style="font-size: 1.4rem;">
+                <i class="bi bi-heart me-2"></i>Dibuat dengan
+            </h5>
+            <p class="mb-0" style="font-size: 1.1rem;">
+                Bootstrap 5, HTML5, CSS3 & JavaScript 💜<br>
+                <small class="text-white-50">Untuk anak-anak Indonesia yang cerdas!</small>
+            </p>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-space" onclick="goTo('screen-main-menu')">
+                <i class="bi bi-arrow-left me-2"></i>Kembali
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+// === GLOBAL STATE ===
+let currentScreen = 'screen-login';
+let solarAnimationId = null;
+let solarSpeed = 1;
+let is3DView = true;
+let userName = '';
+let totalProgress = 0;
+
+// === ZOOM FUNCTIONS ===
+let currentZoom = 1;
+
+function zoomIn() {
+    currentZoom = Math.min(currentZoom + 0.2, 2.5);
+    const solarSystem = document.getElementById('solar-system-3d');
+    if(is3DView) {
+        solarSystem.style.transform = `translate(-50%, -50%) rotateX(75deg) scale(${currentZoom})`;
+    } else {
+        solarSystem.style.transform = `translate(-50%, -50%) scale(${currentZoom})`;
+    }
+}
+
+function zoomOut() {
+    currentZoom = Math.max(currentZoom - 0.2, 0.5);
+    const solarSystem = document.getElementById('solar-system-3d');
+    if(is3DView) {
+        solarSystem.style.transform = `translate(-50%, -50%) rotateX(75deg) scale(${currentZoom})`;
+    } else {
+        solarSystem.style.transform = `translate(-50%, -50%) scale(${currentZoom})`;
+    }
+}
+
+// === CREATE SHOOTING STARS ===
+function createShootingStars() {
+    const bg = document.getElementById('space-bg');
+    setInterval(() => {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 50 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        bg.appendChild(star);
+        setTimeout(() => star.remove(), 3000);
+    }, 4000);
+}
+createShootingStars();
+
+// === CREATE STARS ===
+function createStars() {
+    const container = document.getElementById('stars');
+    for(let i = 0; i < 150; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const sz = Math.random() * 4 + 1;
+        s.style.cssText = `
+            width: ${sz}px;
+            height: ${sz}px;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            --duration: ${Math.random() * 4 + 2}s;
+            --opacity: ${Math.random() * 0.7 + 0.3}
+        `;
+        container.appendChild(s);
+    }
+}
+createStars();
+
+// === NAVIGATION ===
+function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+        s.classList.add('animate__fadeOut');
+        setTimeout(() => s.classList.remove('animate__fadeOut'), 600);
+    });
+    
+    const target = document.getElementById(screenId);
+    if(target) {
+        target.classList.add('active', 'animate__fadeIn');
+        setTimeout(() => target.classList.remove('animate__fadeIn'), 600);
+    }
+    
+    currentScreen = screenId;
+    
+    // Show rocket animation on certain screens
+    if(screenId === 'screen-main-menu' || screenId === 'screen-dashboard') {
+        launchRocket();
+    }
+    
+    if(screenId === 'screen-planet') {
+        setTimeout(initSolarSystem, 300);
+    } else if(solarAnimationId) {
+        cancelAnimationFrame(solarAnimationId);
+        solarAnimationId = null;
+    }
+    
+    if(screenId === 'screen-facts') {
+        loadFunFacts();
+    }
+    
+    if(screenId === 'screen-compare') {
+        loadComparison();
+    }
+}
+
+// === LAUNCH ROCKET ===
+function launchRocket() {
+    const rocket = document.getElementById('rocket');
+    rocket.style.animation = 'none';
+    setTimeout(() => {
+        rocket.style.animation = '';
+    }, 10);
+}
+
+// === LOGIN ===
+function login() {
+    const name = document.getElementById('username').value.trim();
+    if(!name) {
+        alert("Masukkan namamu dulu, Astronaut! 🚀");
+        return;
+    }
+    userName = name;
+    document.getElementById('welcome-msg').innerHTML = 
+        `Selamat Datang, <span class="text-warning">${name}</span>! 🎉`;
+    createConfetti();
+    updateProgress(10);
+    goTo('screen-dashboard');
+}
+
+document.getElementById('username')?.addEventListener('keypress', e => {
+    if(e.key === 'Enter') login();
+});
+
+function showPetunjuk() {
+    alert(`📖 Petunjuk Penggunaan:
+    
+1️⃣ Pelajari Materi - Baca tentang planet-planet
+2️⃣ Jelajahi Planet 3D - Lihat tata surya secara interaktif
+3️⃣ Fakta Seru - Temukan fakta menarik
+4️⃣ Perbandingan - Bandingkan ukuran planet
+5️⃣ Mainkan Game - Tangkap planet yang muncul
+6️⃣ Kerjakan Kuis - Uji pengetahuanmu
+7️⃣ Raih skor tertinggi dan jadi astronaut terbaik! 🏆
+
+Selamat belajar dan bersenang-senang! 🌟`);
+}
+
+// === UPDATE PROGRESS ===
+function updateProgress(points) {
+    totalProgress = Math.min(totalProgress + points, 100);
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) {
+        progressBar.style.width = totalProgress + '%';
+        progressBar.innerText = `Level ${totalProgress}%`;
+    }
+    
+    if(totalProgress >= 100) {
+        showAchievement('🌟 Level Max!', 'Kamu astronaut hebat!');
+    }
+}
+
+// === SHOW ACHIEVEMENT ===
+function showAchievement(title, desc) {
+    const achievement = document.getElementById('achievement');
+    document.getElementById('achievement-title').innerText = title;
+    document.getElementById('achievement-desc').innerText = desc;
+    achievement.classList.add('show');
+    setTimeout(() => achievement.classList.remove('show'), 4000);
+}
+
+// === MATERI ===
+const materials = [
+    {
+        title: "☀️ Matahari",
+        text: "Matahari adalah bintang pusat tata surya kita. Suhu permukaannya mencapai 5.500°C dan intinya 15 juta°C! Matahari memberikan cahaya dan panas yang sangat penting untuk kehidupan di Bumi. Tanpa matahari, Bumi akan gelap dan dingin. Jarak Matahari ke Bumi adalah 149,6 juta km.",
+        color: "#FDB813",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_sun.jpg",
+        funFact: "💡 Fakta Seru: Matahari bisa memuat 1,3 juta Bumi!",
+        details: {
+            diameter: "1.392.700 km",
+            mass: "1.989 × 10³⁰ kg",
+            temperature: "5.500°C (permukaan)",
+            age: "4,6 miliar tahun"
+        }
+    },
+    {
+        title: "☿️ Merkurius",
+        text: "Merkurius adalah planet terkecil dan terdekat dengan Matahari. Suhu di siang hari bisa mencapai 430°C, tapi di malam hari turun drastis sampai -180°C! Merkurius tidak memiliki atmosfer dan tidak punya bulan. Satu tahun di Merkurius hanya 88 hari Bumi.",
+        color: "#8C8C8C",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_mercury.jpg",
+        funFact: "💡 Fakta Seru: Satu tahun di Merkurius hanya 88 hari Bumi!",
+        details: {
+            diameter: "4.879 km",
+            distance: "57,9 juta km dari Matahari",
+            temperature: "-180°C sampai 430°C",
+            moons: "0"
+        }
+    },
+    {
+        title: "♀️ Venus",
+        text: "Venus adalah planet terpanas di tata surya dengan suhu 465°C! Planet ini disebut juga Bintang Kejora karena sering terlihat terang di langit pagi atau sore. Venus berputar berlawanan arah dengan planet lain. Atmosfer Venus sangat tebal dan beracun.",
+        color: "#E6C87A",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_venus_surface.jpg",
+        funFact: "💡 Fakta Seru: Venus lebih panas dari Merkurius meski lebih jauh dari Matahari!",
+        details: {
+            diameter: "12.104 km",
+            distance: "108,2 juta km dari Matahari",
+            temperature: "465°C",
+            day: "243 hari Bumi"
+        }
+    },
+    {
+        title: "🌍 Bumi",
+        text: "Bumi adalah satu-satunya planet yang diketahui memiliki kehidupan! 71% permukaan Bumi tertutup air. Bumi memiliki satu bulan yang mengelilinginya. Atmosfer Bumi melindungi kita dari radiasi berbahaya. Bumi berputar pada porosnya setiap 24 jam.",
+        color: "#4A90D9",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_earth_daymap.jpg",
+        funFact: "💡 Fakta Seru: Bumi tidak bulat sempurna, tapi agak gepeng di kutub!",
+        details: {
+            diameter: "12.742 km",
+            distance: "149,6 juta km dari Matahari",
+            temperature: "-88°C sampai 58°C",
+            moons: "1 (Bulan)"
+        }
+    },
+    {
+        title: "♂️ Mars",
+        text: "Mars dikenal sebagai Planet Merah karena warnanya yang kemerahan. Mars memiliki gunung tertinggi di tata surya, Olympus Mons, yang tingginya 3 kali Gunung Everest! Mars memiliki 2 bulan kecil bernama Phobos dan Deimos. Sunset di Mars berwarna biru!",
+        color: "#C1440E",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_mars.jpg",
+        funFact: "💡 Fakta Seru: Sunset di Mars berwarna biru!",
+        details: {
+            diameter: "6.779 km",
+            distance: "227,9 juta km dari Matahari",
+            temperature: "-140°C sampai 20°C",
+            moons: "2 (Phobos & Deimos)"
+        }
+    },
+    {
+        title: "♃ Jupiter",
+        text: "Jupiter adalah planet terbesar di tata surya! Bisa memuat 1.300 Bumi. Jupiter memiliki Bintik Merah Raksasa, badai yang sudah berlangsung ratusan tahun. Jupiter memiliki lebih dari 75 bulan! Empat yang terbesar adalah Io, Europa, Ganymede, dan Callisto.",
+        color: "#D8CA9D",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_jupiter.jpg",
+        funFact: "💡 Fakta Seru: Jupiter berputar sangat cepat, satu hari hanya 10 jam!",
+        details: {
+            diameter: "139.820 km",
+            distance: "778,5 juta km dari Matahari",
+            temperature: "-145°C",
+            moons: "79+"
+        }
+    },
+    {
+        title: "♄ Saturnus",
+        text: "Saturnus terkenal dengan cincinnya yang indah dan besar, terbuat dari es dan batu. Saturnus adalah planet terbesar kedua. Planet ini sangat ringan, bisa mengapung di air jika ada wadah yang cukup besar! Saturnus memiliki 82 bulan yang diketahui.",
+        color: "#F4D59E",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_saturn.jpg",
+        funFact: "💡 Fakta Seru: Cincin Saturnus lebarnya bisa memuat 4 Bumi!",
+        details: {
+            diameter: "116.460 km",
+            distance: "1,43 miliar km dari Matahari",
+            temperature: "-178°C",
+            moons: "82"
+        }
+    },
+    {
+        title: "♅ Uranus",
+        text: "Uranus adalah planet terdingin di tata surya dengan suhu -224°C! Planet ini berputar miring 98 derajat, seolah-olah berguling. Uranus berwarna biru kehijauan karena gas metana. Uranus memiliki 27 bulan yang diketahui.",
+        color: "#D1E7E7",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_uranus.jpg",
+        funFact: "💡 Fakta Seru: Uranus berputar miring seperti bola yang berguling!",
+        details: {
+            diameter: "50.724 km",
+            distance: "2,87 miliar km dari Matahari",
+            temperature: "-224°C",
+            moons: "27"
+        }
+    },
+    {
+        title: "♆ Neptunus",
+        text: "Neptunus adalah planet terjauh dari Matahari. Memiliki angin tercepat di tata surya, mencapai 2.100 km/jam! Neptunus berwarna biru indah. Satu tahun di Neptunus sama dengan 165 tahun Bumi. Neptunus memiliki 14 bulan yang diketahui.",
+        color: "#5B5DDF",
+        img: "https://www.solarsystemscope.com/images/textures/full/2k_neptune.jpg",
+        funFact: "💡 Fakta Seru: Neptunus ditemukan melalui perhitungan matematika, bukan pengamatan!",
+        details: {
+            diameter: "49.244 km",
+            distance: "4,5 miliar km dari Matahari",
+            temperature: "-218°C",
+            moons: "14"
+        }
+    }
+];
+
+let currentMateri = 0;
+
+function loadMateri() {
+    const d = materials[currentMateri];
+    let detailsHTML = '';
+    for(let [key, value] of Object.entries(d.details)) {
+        detailsHTML += `<div class="col-md-6 mb-2"><strong>${key}:</strong> ${value}</div>`;
+    }
+    
+    document.getElementById('materi-content').innerHTML = `
+        <div class="text-center animate__animated animate__fadeIn">
+            <div class="planet-hero mb-4 mx-auto" 
+                 style="background-image:url('${d.img}');box-shadow:0 0 80px ${d.color}80">
+            </div>
+            <h3 class="mb-3" style="color:${d.color};font-size:2rem">${d.title}</h3>
+            <p class="lead mb-3" style="font-size:1.2rem;line-height:1.8">${d.text}</p>
+            
+            <div class="row mt-4 mb-4">
+                ${detailsHTML}
+            </div>
+            
+            <div class="fun-fact-card">
+                <strong>${d.funFact}</strong>
+            </div>
+            
+            <p class="mt-4 text-white-50">🪐 Planet ${currentMateri + 1} dari ${materials.length}</p>
+        </div>
+    `;
+    updateProgress(5);
+}
+
+function nextMateri() {
+    currentMateri = (currentMateri + 1) % materials.length;
+    loadMateri();
+}
+
+function prevMateri() {
+    currentMateri = (currentMateri - 1 + materials.length) % materials.length;
+    loadMateri();
+}
+
+window.nextMateri = nextMateri;
+window.prevMateri = prevMateri;
+
+// === FUN FACTS ===
+const funFacts = [
+    {icon: "🌟", fact: "Matahari menyusun 99,86% massa seluruh tata surya!"},
+    {icon: "🔥", fact: "Venus berputar lebih lambat daripada mengorbit Matahari!"},
+    {icon: "💨", fact: "Angin di Neptunus bisa mencapai 2.100 km/jam - tercepat di tata surya!"},
+    {icon: "🏔️", fact: "Olympus Mons di Mars adalah gunung tertinggi di tata surya - 3x tinggi Everest!"},
+    {icon: "💍", fact: "Cincin Saturnus sangat tipis - hanya sekitar 10 meter tebalnya!"},
+    {icon: "🌊", fact: "Europa (bulan Jupiter) mungkin memiliki lautan air di bawah permukaannya!"},
+    {icon: "🌡️", fact: "Uranus adalah planet terdingin - mencapai -224°C!"},
+    {icon: "🌍", fact: "Bumi adalah satu-satunya planet yang tidak dinamai dari dewa Romawi!"},
+    {icon: "🌙", fact: "Jupiter memiliki 79+ bulan - lebih banyak dari planet lain!"},
+    {icon: "🔵", fact: "Sunset di Mars berwarna biru, bukan merah seperti di Bumi!"}
+];
+
+function loadFunFacts() {
+    const container = document.getElementById('facts-container');
+    container.innerHTML = '';
+    funFacts.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'fun-fact-card animate__animated animate__fadeInLeft';
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.innerHTML = `
+            <div class="d-flex align-items-center">
+                <span class="fun-fact-icon">${item.icon}</span>
+                <div>
+                    <strong>Fakta #${index + 1}:</strong> ${item.fact}
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// === COMPARISON ===
+function loadComparison() {
+    // Size comparison
+    const sizes = [
+        {name: 'Jupiter', value: 139820, color: '#D8CA9D', img: 'https://www.solarsystemscope.com/images/textures/full/2k_jupiter.jpg'},
+        {name: 'Saturnus', value: 116460, color: '#F4D59E', img: 'https://www.solarsystemscope.com/images/textures/full/2k_saturn.jpg'},
+        {name: 'Uranus', value: 50724, color: '#D1E7E7', img: 'https://www.solarsystemscope.com/images/textures/full/2k_uranus.jpg'},
+        {name: 'Neptunus', value: 49244, color: '#5B5DDF', img: 'https://www.solarsystemscope.com/images/textures/full/2k_neptune.jpg'},
+        {name: 'Bumi', value: 12742, color: '#4A90D9', img: 'https://www.solarsystemscope.com/images/textures/full/2k_earth_daymap.jpg'},
+        {name: 'Venus', value: 12104, color: '#E6C87A', img: 'https://www.solarsystemscope.com/images/textures/full/2k_venus_surface.jpg'},
+        {name: 'Mars', value: 6779, color: '#C1440E', img: 'https://www.solarsystemscope.com/images/textures/full/2k_mars.jpg'},
+        {name: 'Merkurius', value: 4879, color: '#8C8C8C', img: 'https://www.solarsystemscope.com/images/textures/full/2k_mercury.jpg'}
+    ];
+    
+    const maxSize = Math.max(...sizes.map(s => s.value));
+    let sizeHTML = '';
+    sizes.forEach(planet => {
+        const width = (planet.value / maxSize) * 100;
+        sizeHTML += `
+            <div class="planet-bar">
+                <div class="planet-bar-icon" style="background-image: url('${planet.img}')"></div>
+                <div class="planet-bar-name">${planet.name}</div>
+                <div class="planet-bar-value">
+                    <div class="planet-bar-fill" style="width: ${width}%; background: ${planet.color}"></div>
+                </div>
+                <div style="min-width: 100px; font-weight: 600;">${planet.value.toLocaleString()} km</div>
+            </div>
+        `;
+    });
+    document.getElementById('size-comparison').innerHTML = sizeHTML;
+    
+    // Distance comparison
+    const distances = [
+        {name: 'Merkurius', value: 57.9, color: '#8C8C8C'},
+        {name: 'Venus', value: 108.2, color: '#E6C87A'},
+        {name: 'Bumi', value: 149.6, color: '#4A90D9'},
+        {name: 'Mars', value: 227.9, color: '#C1440E'},
+        {name: 'Jupiter', value: 778.5, color: '#D8CA9D'},
+        {name: 'Saturnus', value: 1429, color: '#F4D59E'},
+        {name: 'Uranus', value: 2871, color: '#D1E7E7'},
+        {name: 'Neptunus', value: 4498, color: '#5B5DDF'}
+    ];
+    
+    const maxDist = Math.max(...distances.map(d => d.value));
+    let distHTML = '';
+    distances.forEach(planet => {
+        const width = (planet.value / maxDist) * 100;
+        distHTML += `
+            <div class="planet-bar">
+                <div class="planet-bar-name">${planet.name}</div>
+                <div class="planet-bar-value">
+                    <div class="planet-bar-fill" style="width: ${width}%; background: ${planet.color}"></div>
+                </div>
+                <div style="min-width: 120px; font-weight: 600;">${planet.value} juta km</div>
+            </div>
+        `;
+    });
+    document.getElementById('distance-comparison').innerHTML = distHTML;
+    
+    // Temperature comparison
+    const temps = [
+        {name: 'Venus', value: 465, color: '#E6C87A', hot: true},
+        {name: 'Merkurius', value: 430, color: '#8C8C8C', hot: true},
+        {name: 'Bumi', value: 15, color: '#4A90D9', hot: false},
+        {name: 'Mars', value: -60, color: '#C1440E', hot: false},
+        {name: 'Jupiter', value: -145, color: '#D8CA9D', hot: false},
+        {name: 'Saturnus', value: -178, color: '#F4D59E', hot: false},
+        {name: 'Uranus', value: -224, color: '#D1E7E7', hot: false},
+        {name: 'Neptunus', value: -218, color: '#5B5DDF', hot: false}
+    ];
+    
+    const maxTemp = 500;
+    let tempHTML = '';
+    temps.forEach(planet => {
+        const width = Math.abs(planet.value) / maxTemp * 100;
+        const tempColor = planet.hot ? `linear-gradient(90deg, #ff4400, ${planet.color})` : 
+                                     `linear-gradient(90deg, #0099ff, ${planet.color})`;
+        tempHTML += `
+            <div class="planet-bar">
+                <div class="planet-bar-name">${planet.name}</div>
+                <div class="planet-bar-value">
+                    <div class="planet-bar-fill" style="width: ${width}%; background: ${tempColor}"></div>
+                </div>
+                <div style="min-width: 80px; font-weight: 600;">${planet.value}°C</div>
+            </div>
+        `;
+    });
+    document.getElementById('temp-comparison').innerHTML = tempHTML;
+}
+
+// === QUIZ ===
+const questions = [
+    {q: "Planet manakah yang disebut Planet Merah?", options: ["Bumi", "Mars", "Venus", "Jupiter"], answer: 1},
+    {q: "Planet terbesar di tata surya adalah?", options: ["Saturnus", "Neptunus", "Jupiter", "Uranus"], answer: 2},
+    {q: "Pusat tata surya kita adalah?", options: ["Bulan", "Bumi", "Matahari", "Mars"], answer: 2},
+    {q: "Planet yang memiliki cincin paling indah adalah?", options: ["Jupiter", "Uranus", "Neptunus", "Saturnus"], answer: 3},
+    {q: "Planet terdekat dengan Matahari adalah?", options: ["Venus", "Merkurius", "Bumi", "Mars"], answer: 1},
+    {q: "Berapa jumlah planet di tata surya?", options: ["7", "8", "9", "10"], answer: 1},
+    {q: "Planet terpanas di tata surya adalah?", options: ["Merkurius", "Mars", "Venus", "Jupiter"], answer: 2},
+    {q: "Satu-satunya planet dengan kehidupan adalah?", options: ["Mars", "Venus", "Bumi", "Jupiter"], answer: 2},
+    {q: "Planet apakah yang berputar miring?", options: ["Uranus", "Neptunus", "Saturnus", "Jupiter"], answer: 0},
+    {q: "Berapa suhu permukaan Matahari?", options: ["1.500°C", "5.500°C", "10.000°C", "100.000°C"], answer: 1},
+    {q: "Berapa banyak bulan yang dimiliki Bumi?", options: ["0", "1", "2", "3"], answer: 1},
+    {q: "Gunung tertinggi di tata surya ada di planet?", options: ["Bumi", "Mars", "Venus", "Jupiter"], answer: 1}
+];
+
+let currentQ = 0, score = 0;
+
+function loadQuiz() {
+    if(currentQ >= questions.length) {
+        document.getElementById('quiz-box').style.display = 'none';
+        document.getElementById('score-box').style.display = 'block';
+        const finalScore = Math.round(score * (100 / questions.length));
+        document.getElementById('final-score').innerText = finalScore;
+        createConfetti();
+        updateProgress(20);
+        
+        if(finalScore >= 90) {
+            showAchievement('🌟 Jenius Luar Biasa!', `Skor ${finalScore} - Sempurna!`);
+        } else if(finalScore >= 80) {
+            showAchievement('🌟 Jenius!', `Skor ${finalScore} - Hebat sekali!`);
+        } else if(finalScore >= 60) {
+            showAchievement('👍 Bagus!', `Skor ${finalScore} - Terus belajar!`);
+        }
+        return;
+    }
+    
+    const q = questions[currentQ];
+    document.getElementById('question-number').innerText = `Soal ${currentQ + 1} dari ${questions.length}`;
+    document.getElementById('question-text').innerText = q.q;
+    
+    const progress = ((currentQ) / questions.length) * 100;
+    document.getElementById('quiz-progress').style.width = progress + '%';
+    document.getElementById('quiz-progress').innerText = `Soal ${currentQ + 1}/${questions.length}`;
+    
+    const opts = document.getElementById('options-container');
+    opts.innerHTML = '';
+    
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.innerHTML = `<i class="bi bi-circle me-2"></i>${opt}`;
+        btn.onclick = () => checkAnswer(i, btn);
+        opts.appendChild(btn);
+    });
+}
+
+function checkAnswer(sel, btn) {
+    document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+    
+    if(sel === questions[currentQ].answer) {
+        btn.classList.add('correct');
+        btn.innerHTML = '<i class="bi bi-check-circle me-2"></i>Benar! 🎉';
+        score++;
+    } else {
+        btn.classList.add('wrong');
+        btn.innerHTML = '<i class="bi bi-x-circle me-2"></i>Salah!';
+        document.querySelectorAll('.quiz-option')[questions[currentQ].answer].classList.add('correct');
+    }
+    
+    setTimeout(() => {
+        currentQ++;
+        loadQuiz();
+    }, 1500);
+}
+
+function resetQuiz() {
+    currentQ = 0;
+    score = 0;
+    document.getElementById('quiz-box').style.display = 'block';
+    document.getElementById('score-box').style.display = 'none';
+    document.getElementById('quiz-progress').style.width = '0%';
+    loadQuiz();
+}
+
+// === GAME ===
+let gameScore = 0, gameActive = false, gameTimer;
+
+function startGame() {
+    gameScore = 0;
+    gameActive = true;
+    document.getElementById('game-score').innerText = 0;
+    document.getElementById('game-time').innerText = 30;
+    document.getElementById('game-area').innerHTML = '';
+    document.getElementById('btn-start-game').disabled = true;
+    document.getElementById('btn-start-game').innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Game Berlangsung...';
+    
+    let t = 30;
+    gameTimer = setInterval(() => {
+        t--;
+        document.getElementById('game-time').innerText = t;
+        if(t <= 0) {
+            clearInterval(gameTimer);
+            endGame();
+        }
+    }, 1000);
+    
+    spawnPlanet();
+}
+
+function spawnPlanet() {
+    if(!gameActive) return;
+    
+    const area = document.getElementById('game-area');
+    const p = document.createElement('div');
+    p.className = 'target-planet';
+    
+    const colors = ['#e17055', '#0984e3', '#fdcb6e', '#a29bfe', '#00b894', '#fd79a8'];
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    
+    p.style.cssText = `
+        background: ${c};
+        color: ${c};
+        left: ${Math.random() * (area.clientWidth - 70)}px;
+        top: ${Math.random() * (area.clientHeight - 70)}px
+    `;
+    
+    p.onclick = () => {
+        gameScore += 10;
+        document.getElementById('game-score').innerText = gameScore;
+        p.style.transform = 'scale(0)';
+        setTimeout(() => p.remove(), 200);
+        if(gameActive) spawnPlanet();
+    };
+    
+    area.appendChild(p);
+    
+    setTimeout(() => {
+        if(p.parentNode && gameActive) {
+            p.style.opacity = '0';
+            setTimeout(() => {
+                if(p.parentNode) p.remove();
+            }, 200);
+        }
+    }, 2000);
+    
+    if(gameActive) setTimeout(spawnPlanet, 1000);
+}
+
+function endGame() {
+    gameActive = false;
+    clearInterval(gameTimer);
+    
+    let message = '';
+    if(gameScore >= 200) {
+        message = '<p class="text-success" style="font-size:1.3rem">🌟 Luar Biasa! Kamu sangat cepat!</p>';
+        showAchievement('🏆 Master Planet!', `Skor ${gameScore} - Fantastis!`);
+    } else if(gameScore >= 100) {
+        message = '<p class="text-info" style="font-size:1.3rem">👍 Bagus! Terus berlatih!</p>';
+        showAchievement('⭐ Hebat!', `Skor ${gameScore} - Pertahankan!`);
+    } else {
+        message = '<p class="text-warning" style="font-size:1.3rem">💪 Terus Berlatih!</p>';
+    }
+    
+    document.getElementById('game-area').innerHTML = `
+        <div class="text-center" style="margin-top:140px">
+            <h3 class="text-warning mb-3" style="font-size:2rem">🎮 Game Over!</h3>
+            <p class="lead mb-3">Skor Kamu: <strong style="font-size:1.5rem;color:var(--accent)">${gameScore}</strong></p>
+            ${message}
+        </div>
+    `;
+    
+    document.getElementById('btn-start-game').disabled = false;
+    document.getElementById('btn-start-game').innerHTML = '<i class="bi bi-play-fill me-2"></i>Main Lagi';
+    updateProgress(15);
+    
+    if(gameScore >= 150) createConfetti();
+}
+
+// === CONFETTI ===
+function createConfetti() {
+    const colors = ['#fdcb6e', '#00cec9', '#fd79a8', '#a29bfe', '#00b894', '#e17055'];
+    for(let i = 0; i < 60; i++) {
+        setTimeout(() => {
+            const c = document.createElement('div');
+            c.className = 'confetti';
+            c.style.cssText = `
+                left: ${Math.random() * 100}vw;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                animation-duration: ${Math.random() * 2 + 2}s
+            `;
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 4000);
+        }, i * 30);
+    }
+}
+
+// === 3D SOLAR SYSTEM ===
+const planets3D = [
+    {name:'mercury', label:'☿️ Merkurius', size:14, orbit:60, speed:4.15, color:'#8C8C8C', 
+     info:'🌡️ Suhu: -180°C hingga 430°C<br>📏 Planet terkecil<br>⏱️ 1 tahun = 88 hari Bumi', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_mercury.jpg'},
+    {name:'venus', label:'♀️ Venus', size:18, orbit:90, speed:1.63, color:'#E6C87A', 
+     info:'🌡️ Suhu: 465°C (Terpanas!)<br>📏 Mirip Bumi<br>⏱️ 1 tahun = 225 hari Bumi', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_venus_surface.jpg'},
+    {name:'earth', label:'🌍 Bumi', size:20, orbit:125, speed:1, color:'#4A90D9', 
+     info:'🌡️ Suhu: -88°C hingga 58°C<br>📏 Diameter 12.742 km<br>💫 Satu-satunya dengan kehidupan!', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_earth_daymap.jpg'},
+    {name:'mars', label:'♂️ Mars', size:16, orbit:160, speed:0.53, color:'#C1440E', 
+     info:'🌡️ Suhu: -140°C hingga 20°C<br>📏 Setengah dari Bumi<br>🏔️ Gunung Olympus Mons', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_mars.jpg'},
+    {name:'jupiter', label:'♃ Jupiter', size:45, orbit:220, speed:0.084, color:'#D8CA9D', 
+     info:'🌡️ Suhu: -145°C<br>📏 11x lebih besar dari Bumi<br>🌪️ Bintik Merah Raksasa', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_jupiter.jpg'},
+    {name:'saturn', label:'♄ Saturnus', size:38, orbit:290, speed:0.034, color:'#F4D59E', 
+     info:'🌡️ Suhu: -178°C<br>📏 9x lebih besar dari Bumi<br>💍 Cincin indah dari es!', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_saturn.jpg', ring:true},
+    {name:'uranus', label:'♅ Uranus', size:28, orbit:350, speed:0.012, color:'#D1E7E7', 
+     info:'🌡️ Suhu: -224°C (Terdingin!)<br>📏 4x lebih besar dari Bumi<br>🔄 Berputar miring 98°!', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_uranus.jpg'},
+    {name:'neptune', label:'♆ Neptunus', size:26, orbit:400, speed:0.006, color:'#5B5DDF', 
+     info:'🌡️ Suhu: -218°C<br>📏 4x lebih besar dari Bumi<br>💨 Angin tercepat: 2.100 km/jam!', 
+     img:'https://www.solarsystemscope.com/images/textures/full/2k_neptune.jpg'}
+];
+
+function initSolarSystem(){
+    const container = document.getElementById('solar-system-3d'),
+          stars = document.getElementById('stars-3d');
+    if(!container) return;
+    
+    // Clear existing
+    const existing = container.querySelectorAll('.orbit-3d, .planet-3d, .planet-3d-wrapper, .star-3d');
+    existing.forEach(e => e.remove());
+    
+    // Stars
+    for(let i = 0; i < 150; i++) {
+        const s = document.createElement('div');
+        s.className = 'star-3d';
+        const size = Math.random() * 3 + 1;
+        s.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation-delay: ${Math.random() * 2}s
+        `;
+        stars.appendChild(s);
+    }
+    
+    // Planets dengan orbit yang lebih KECIL dan PROPORSIONAL
+    planets3D.forEach((p, index) => {
+        // Orbit - UKURAN DIPERKECIL
+        const orbit = document.createElement('div');
+        orbit.className = 'orbit-3d';
+        const orbitSize = p.orbit * 1.8; // Diperkecil dari 2.0 jadi 1.8
+        orbit.style.cssText = `
+            width: ${orbitSize}px;
+            height: ${orbitSize}px;
+            animation-duration: ${100 / p.speed / solarSpeed}s
+        `;
+        
+        // Planet wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'planet-3d-wrapper';
+        
+        // Planet - UKURAN DIPERBESAR
+        const planet = document.createElement('div');
+        planet.className = 'planet-3d';
+        const planetSize = p.size * 1.5; // Diperbesar 1.5x
+        planet.style.cssText = `
+            width: ${planetSize}px;
+            height: ${planetSize}px;
+            background-image: url('${p.img}');
+            box-shadow: 0 0 40px ${p.color}66, inset -10px -10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.3);
+        `;
+        
+        // Label
+        const label = document.createElement('span');
+        label.className = 'planet-label';
+        label.innerHTML = p.label;
+        planet.appendChild(label);
+        
+        planet.onclick = (e) => {
+            e.stopPropagation();
+            showPlanetInfo(p.name);
+        };
+        
+        // Ring untuk Saturnus
+        if(p.ring) {
+            const ring = document.createElement('div');
+            ring.className = 'planet-ring';
+            ring.style.cssText = `
+                width: ${planetSize * 2.2}px;
+                height: ${planetSize * 0.5}px;
+                border-color: ${p.color}99;
+            `;
+            wrapper.appendChild(ring);
+        }
+        
+        wrapper.appendChild(planet);
+        orbit.appendChild(wrapper);
+        container.appendChild(orbit);
+    });
+    
+    animateSolar();
+}
+
+function animateSolar() {
+    const orbits = document.querySelectorAll('.orbit-3d');
+    
+    function animate() {
+        if(!is3DView) {
+            solarAnimationId = requestAnimationFrame(animate);
+            return;
+        }
+        
+        orbits.forEach((o, i) => {
+            if(planets3D[i]) {
+                const currentTransform = o.style.transform;
+                const match = currentTransform.match(/rotateZ\((-?\d+\.?\d*)deg\)/);
+                const currentRotation = match ? parseFloat(match[1]) : 0;
+                const newRotation = currentRotation - (0.3 * solarSpeed);
+                o.style.transform = `translate(-50%, -50%) rotateZ(${newRotation}deg)`;
+            }
+        });
+        
+        solarAnimationId = requestAnimationFrame(animate);
+    }
+    
+    animate();
+}
+
+function toggleSpeed() {
+    solarSpeed = solarSpeed === 1 ? 2 : solarSpeed === 2 ? 0.5 : 1;
+    const labels = {1: 'Normal', 2: 'Cepat', 0.5: 'Lambat'};
+    document.getElementById('btn-speed').innerHTML = `⚡ Speed: ${labels[solarSpeed]}`;
+    
+    document.querySelectorAll('.orbit-3d').forEach((o, i) => {
+        if(planets3D[i]) {
+            o.style.animationDuration = `${100 / planets3D[i].speed / solarSpeed}s`;
+        }
+    });
+}
+
+function resetSolar(){
+    solarSpeed=1;
+    currentZoom = 1; // Tambahkan ini
+    document.getElementById('btn-speed').innerText='⚡ Speed: Normal';
+    document.getElementById('planet-info-panel').style.display='none';
+    
+    // Reset zoom
+    const solarSystem = document.getElementById('solar-system-3d');
+    if(is3DView) {
+        solarSystem.style.transform = 'translate(-50%, -50%) rotateX(75deg) scale(1)';
+    } else {
+        solarSystem.style.transform = 'translate(-50%, -50%) scale(1)';
+    }
+    
+    document.querySelectorAll('.orbit-3d').forEach(o=>o.style.transform='translate(-50%,-50%) rotateZ(0deg)');
+}
+
+function toggleView() {
+    is3DView = !is3DView;
+    const solarSystem = document.getElementById('solar-system-3d');
+    const sun = document.getElementById('sun-3d');
+    const btn = document.querySelector('button[onclick="toggleView()"]');
+    
+    if (is3DView) {
+        // === 3D VIEW ===
+        solarSystem.style.transform = 'translate(-50%, -50%) rotateX(75deg)';
+        btn.innerHTML = '👁️ Tampilan 3D';
+        
+        // Sun untuk 3D
+        sun.style.transform = 'translate(-50%, -50%) rotateX(-90deg)';
+        sun.style.width = '120px';
+        sun.style.height = '120px';
+        
+        // Planets untuk 3D
+        document.querySelectorAll('.planet-3d').forEach(p => {
+            p.style.transform = 'translate(-50%, -50%) rotateX(-75deg)';
+        });
+        
+        // Labels untuk 3D
+        document.querySelectorAll('.planet-label').forEach(l => {
+            l.style.transform = 'translateX(-50%) rotateX(-75deg)';
+            l.style.bottom = '-40px';
+        });
+        
+        animateSolar();
+    } else {
+        // === 2D VIEW (TOP DOWN) ===
+        solarSystem.style.transform = 'translate(-50%, -50%) rotateX(0deg)';
+        btn.innerHTML = '👁️ Tampilan 2D';
+        
+        // Sun untuk 2D - LEBIH BESAR dan TERLIHAT
+        sun.style.transform = 'translate(-50%, -50%) rotateX(0deg)';
+        sun.style.width = '140px';
+        sun.style.height = '140px';
+        sun.style.boxShadow = '0 0 120px #ff8800, 0 0 240px #ff4400, 0 0 360px #ff2200';
+        
+        // Planets untuk 2D - face up
+        document.querySelectorAll('.planet-3d').forEach(p => {
+            p.style.transform = 'translate(-50%, -50%) rotateX(0deg) scale(1.3)';
+        });
+        
+        // Labels untuk 2D - always readable
+        document.querySelectorAll('.planet-label').forEach(l => {
+            l.style.transform = 'translateX(-50%) rotateX(0deg)';
+            l.style.bottom = '-35px';
+            l.style.background = 'rgba(0,0,0,0.8)';
+            l.style.padding = '5px 10px';
+            l.style.borderRadius = '8px';
+            l.style.fontSize = '0.9rem';
+        });
+        
+        if (solarAnimationId) {
+            cancelAnimationFrame(solarAnimationId);
+            solarAnimationId = null;
+        }
+    }
+}
+
+function showPlanetInfo(name) {
+    const panel = document.getElementById('planet-info-panel');
+    const nameEl = document.getElementById('planet-name');
+    const descEl = document.getElementById('planet-desc');
+    
+    if(name === 'sun') {
+        nameEl.innerHTML = '☀️ Matahari';
+        descEl.innerHTML = '🌡️ Suhu: 5.500°C (permukaan)<br>📏 Ukuran: 109x diameter Bumi<br>⏱️ Usia: 4.6 miliar tahun<br>💫 Bintang pusat tata surya, sumber cahaya & panas!';
+    } else {
+        const p = planets3D.find(x => x.name === name);
+        if(p) {
+            nameEl.innerHTML = p.label;
+            descEl.innerHTML = p.info;
+        }
+    }
+    
+    panel.style.display = 'block';
+    panel.classList.add('animate__animated', 'animate__fadeInUp');
+    setTimeout(() => panel.classList.remove('animate__animated', 'animate__fadeInUp'), 600);
+}
+
+// === INIT ===
+document.addEventListener('DOMContentLoaded', () => {
+    loadMateri();
+    loadQuiz();
+});
+
+// Button click effect
+document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => this.style.transform = '', 100);
+    });
+});
+</script>
+</body>
+</html>

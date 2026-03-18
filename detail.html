@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Planet</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #0b0f2f, #1a237e);
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    img {
+      width: 180px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #ff9800;
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #ffc107;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="namaPlanet">Planet</h1>
+
+    <img id="gambarPlanet" src="" alt="Planet">
+
+    <div class="card">
+      <p id="deskripsi"></p>
+    </div>
+
+    <a href="planet.html" class="btn">⬅ Kembali</a>
+    <a href="game.html" class="btn">🎮 Main Game</a>
+  </div>
+
+  <script>
+    const dataPlanet = {
+      "Merkurius": {
+        gambar: "assets/images/planets/mercury.png",
+        deskripsi: "Merkurius adalah planet paling dekat dengan Matahari. Suhunya sangat panas di siang hari dan sangat dingin di malam hari."
+      },
+      "Venus": {
+        gambar: "assets/images/planets/venus.png",
+        deskripsi: "Venus adalah planet terpanas di tata surya. Permukaannya dipenuhi awan tebal dan beracun."
+      },
+      "Bumi": {
+        gambar: "assets/images/planets/earth.png",
+        deskripsi: "Bumi adalah tempat kita tinggal. Bumi memiliki air, udara, dan kehidupan."
+      },
+      "Mars": {
+        gambar: "assets/images/planets/mars.png",
+        deskripsi: "Mars disebut planet merah karena warnanya. Mars memiliki gunung tertinggi di tata surya."
+      },
+      "Jupiter": {
+        gambar: "assets/images/planets/jupiter.png",
+        deskripsi: "Jupiter adalah planet terbesar. Planet ini memiliki badai besar yang disebut Bintik Merah Besar."
+      },
+      "Saturnus": {
+        gambar: "assets/images/planets/saturn.png",
+        deskripsi: "Saturnus terkenal dengan cincin indahnya yang terbuat dari es dan batu."
+      },
+      "Uranus": {
+        gambar: "assets/images/planets/uranus.png",
+        deskripsi: "Uranus berwarna biru kehijauan dan berputar miring."
+      },
+      "Neptunus": {
+        gambar: "assets/images/planets/neptune.png",
+        deskripsi: "Neptunus adalah planet terjauh dan memiliki angin sangat kencang."
+      }
+    };
+
+    const planet = localStorage.getItem("planet");
+
+    if (planet && dataPlanet[planet]) {
+      document.getElementById("namaPlanet").innerText = planet;
+      document.getElementById("gambarPlanet").src = dataPlanet[planet].gambar;
+      document.getElementById("deskripsi").innerText = dataPlanet[planet].deskripsi;
+    } else {
+      document.getElementById("namaPlanet").innerText = "Planet tidak ditemukan";
+    }
+  </script>
+
+</body>
+</html>

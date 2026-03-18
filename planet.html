@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Planet</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #0b0f2f, #1a237e);
+      color: white;
+    }
+
+    .container {
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .card img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #ff9800;
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn-back:hover {
+      background: #ffc107;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🌍 Daftar Planet</h1>
+
+    <div class="grid">
+
+      <div class="card" onclick="goToDetail('Merkurius')">
+        <img src="assets/images/planets/mercury.png" alt="Merkurius">
+        <h3>Merkurius</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Venus')">
+        <img src="assets/images/planets/venus.png" alt="Venus">
+        <h3>Venus</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Bumi')">
+        <img src="assets/images/planets/earth.png" alt="Bumi">
+        <h3>Bumi</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Mars')">
+        <img src="assets/images/planets/mars.png" alt="Mars">
+        <h3>Mars</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Jupiter')">
+        <img src="assets/images/planets/jupiter.png" alt="Jupiter">
+        <h3>Jupiter</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Saturnus')">
+        <img src="assets/images/planets/saturn.png" alt="Saturnus">
+        <h3>Saturnus</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Uranus')">
+        <img src="assets/images/planets/uranus.png" alt="Uranus">
+        <h3>Uranus</h3>
+      </div>
+
+      <div class="card" onclick="goToDetail('Neptunus')">
+        <img src="assets/images/planets/neptune.png" alt="Neptunus">
+        <h3>Neptunus</h3>
+      </div>
+
+    </div>
+
+    <a href="index.html" class="btn-back">⬅ Kembali</a>
+  </div>
+
+  <script>
+    function goToDetail(namaPlanet) {
+      localStorage.setItem("planet", namaPlanet);
+      window.location.href = "detail.html";
+    }
+  </script>
+
+</body>
+</

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Tebak Planet</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #0b0f2f, #1a237e);
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    img {
+      width: 150px;
+      margin: 20px 0;
+    }
+
+    .options button {
+      display: block;
+      width: 200px;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #ff9800;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .options button:hover {
+      background: #ffc107;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎮 Tebak Planet</h1>
+    <p id="question">Planet apakah ini?</p>
+
+    <img id="planetImage" src="" alt="planet">
+
+    <div class="options" id="options"></div>
+  </div>
+
+  <script>
+    const planets = [
+      "Merkurius","Venus","Bumi","Mars","Jupiter","Saturnus","Uranus","Neptunus"
+    ];
+
+    const images = {
+      "Merkurius": "assets/images/planets/mercury.png",
+      "Venus": "assets/images/planets/venus.png",
+      "Bumi": "assets/images/planets/earth.png",
+      "Mars": "assets/images/planets/mars.png",
+      "Jupiter": "assets/images/planets/jupiter.png",
+      "Saturnus": "assets/images/planets/saturn.png",
+      "Uranus": "assets/images/planets/uranus.png",
+      "Neptunus": "assets/images/planets/neptune.png"
+    };
+
+    let score = 0;
+    let currentQuestion = 0;
+    const totalQuestions = 5;
+
+    function getRandomPlanet() {
+      return planets[Math.floor(Math.random() * planets.length)];
+    }
+
+    function loadQuestion() {
+      if (currentQuestion >= totalQuestions) {
+        localStorage.setItem("score", score);
+        window.location.href = "score.html";
+        return;
+      }
+
+      currentQuestion++;
+      const correct = getRandomPlanet();
+      document.getElementById("planetImage").src = images[correct];
+
+      let options = [correct];
+      while (options.length < 4) {
+        let rand = getRandomPlanet();
+        if (!options.includes(rand)) options.push(rand);
+      }
+
+      options.sort(() => Math.random() - 0.5);
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(opt, correct);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected, correct) {
+      if (selected === correct) {
+        score += 20;
+        alert("🎉 Benar!");
+      } else {
+        alert("❌ Salah!");
+      }
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

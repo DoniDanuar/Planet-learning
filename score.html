@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skor Game</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #0b0f2f, #1a237e);
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .score-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px auto;
+      width: 250px;
+    }
+
+    .score {
+      font-size: 3rem;
+      margin: 10px 0;
+      color: #ffeb3b;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 25px;
+      border-radius: 25px;
+      background: #ff9800;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffc107;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏆 Hasil Game</h1>
+
+    <div class="score-box">
+      <div>Skor Kamu</div>
+      <div class="score" id="score">0</div>
+      <div class="message" id="message"></div>
+    </div>
+
+    <a href="game.html" class="btn">🔁 Main Lagi</a>
+    <a href="index.html" class="btn">🏠 Beranda</a>
+  </div>
+
+  <script>
+    const score = localStorage.getItem("score") || 0;
+    document.getElementById("score").innerText = score;
+
+    let message = "";
+
+    if (score == 100) {
+      message = "🎉 Hebat! Kamu Ahli Planet!";
+    } else if (score >= 60) {
+      message = "👍 Bagus! Kamu sudah mengenal banyak planet!";
+    } else {
+      message = "💪 Ayo belajar lagi supaya lebih jago!";
+    }
+
+    document.getElementById("message").innerText = message;
+  </script>
+
+</body>
+</html>
